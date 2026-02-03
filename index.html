@@ -1,175 +1,302 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kick Bot | Site Oficial</title>
-<link rel="icon" type="image/png" href="favicon.png">
-  <style>
-    :root {
-      --bg: #0b0f14;
-      --card: #121826;
-      --accent: #00ffd5;
-      --text: #e6e6e6;
-      --muted: #9aa4b2;
-    }* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kick Bot</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.cdnfonts.com/css/dirty-liar" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/dirty-liar');
 
-body {
-  background: linear-gradient(180deg, #070a0f, #0b0f14);
-  color: var(--text);
-  min-height: 100vh;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-header {
-  padding: 60px 20px;
-  text-align: center;
-}
+        body {
+            font-family: 'Dirty Liar', 'Arial Black', sans-serif;
+            background: #fff;
+            color: #000;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-header h1 {
-  font-size: 3rem;
-  letter-spacing: 2px;
-  color: var(--accent);
-}
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vmin;
+            height: 60vmin;
+            background-image: url('favicon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-header p {
-  margin-top: 15px;
-  color: var(--muted);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.6;
-}
+        /* Distorted Logo */
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 900;
+            letter-spacing: -1px;
+            z-index: 100;
+            transform: skewX(-5deg);
+            mix-blend-mode: difference;
+            color: #fff;
+        }
 
-section {
-  padding: 50px 20px;
-  max-width: 1100px;
-  margin: auto;
-}
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
+        .hero-title {
+            font-size: clamp(4rem, 15vw, 18rem);
+            font-weight: 900;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            text-align: center;
+            transform: scaleY(1.2);
+            position: relative;
+        }
 
-.card {
-  background: var(--card);
-  padding: 25px;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
+        .distorted {
+            display: block;
+            transform: skewY(-2deg) scaleX(0.95);
+        }
 
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
+        .distorted:nth-child(2) {
+            transform: skewY(1deg) scaleX(1.05);
+            margin-left: -10px;
+        }
 
-.card h3 {
-  color: var(--accent);
-  margin-bottom: 10px;
-}
+        .distorted:nth-child(3) {
+            transform: skewY(-1deg) scaleX(0.98);
+            margin-left: 10px;
+            font-size: 0.7em;
+            opacity: 0.8;
+        }
 
-.card p {
-  color: var(--muted);
-  line-height: 1.5;
-}
+        /* Info Section */
+        .info {
+            padding: 10vh 5%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-.cta {
-  text-align: center;
-  margin-top: 60px;
-}
+        .info p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            line-height: 1.4;
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
 
-.cta a {
-  display: inline-block;
-  padding: 16px 32px;
-  background: var(--accent);
-  color: #000;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 40px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
+        /* Features - Brutalist List */
+        .features {
+            list-style: none;
+            margin: 5rem 0;
+        }
 
-.cta a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(0, 255, 213, 0.6);
-}
+        .features li {
+            padding: 2rem 0;
+            border-top: 2px solid #000;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 700;
+            transition: all 0.2s;
+            cursor: default;
+        }
 
-footer {
-  padding: 30px 20px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
+        .features li:hover {
+            padding-left: 20px;
+            background: #000;
+            color: #fff;
+        }
 
-/* Botão flutuante de contato */
-.chat-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--accent);
-  color: #000;
-  padding: 14px 20px;
-  border-radius: 50px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 10px 25px rgba(0, 255, 213, 0.4);
-  transition: transform 0.2s;
-}
+        .features li:last-child {
+            border-bottom: 2px solid #000;
+        }
 
-.chat-btn:hover {
-  transform: scale(1.1);
-}
+        /* CTA Section */
+        .cta {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5% 20px;
+            background: #000;
+            color: #fff;
+        }
 
-  </style>
+        .cta-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.02em;
+            transform: scaleY(1.1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 900;
+            color: #000;
+            background: #fff;
+            text-decoration: none;
+            border: 3px solid #fff;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-button:hover {
+            background: #000;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            background: #fff;
+            border-top: 2px solid #000;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        /* Glitch Effect */
+        @keyframes glitch {
+            0% {
+                transform: scaleY(1.2) translate(0);
+            }
+            20% {
+                transform: scaleY(1.2) translate(-2px, 2px);
+            }
+            40% {
+                transform: scaleY(1.2) translate(-2px, -2px);
+            }
+            60% {
+                transform: scaleY(1.2) translate(2px, 2px);
+            }
+            80% {
+                transform: scaleY(1.2) translate(2px, -2px);
+            }
+            100% {
+                transform: scaleY(1.2) translate(0);
+            }
+        }
+
+        .hero-title:hover {
+            animation: glitch 0.3s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info {
+                padding: 5vh 5%;
+            }
+
+            .features li {
+                font-size: 1.3rem;
+            }
+
+            .cta-button {
+                padding: 1.2rem 2rem;
+            }
+
+            .distorted:nth-child(2),
+            .distorted:nth-child(3) {
+                margin-left: 0;
+            }
+        }
+
+        /* Minimalist Cursor Effect */
+        body {
+            cursor: crosshair;
+        }
+
+        a, button {
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>KICK BOT</h1>
-    <p>
-      Kick Bot é um bot para WhatsApp focado em grupos, automação,
-      administração e diversão. Desenvolvido para oferecer controle, segurança
-      e recursos avançados em um único sistema.
-    </p>
-  </header>  <section>
-    <div class="grid">
-      <div class="card">
-        <h3>🤖 Automação Inteligente</h3>
-        <p>
-          Respostas automáticas, sistemas de RPG,
-          figurinhas e muito mais.
-        </p>
-      </div><div class="card">
-    <h3>🛡️ Moderação de Grupos</h3>
-    <p>
-      Controle total do grupo com bloqueio de links, anti-spam,
-      gerenciamento de membros e permissões.
-    </p>
-  </div>
+    <div class="logo">K!CK</div>
 
-  <div class="card">
-    <h3>💼 Aluguel do Bot</h3>
-    <p>
-      Sistema de aluguel mensal com suporte e atualizações.
-    </p>
-  </div>
-</div>
+    <section class="hero">
+        <h1 class="hero-title">
+            <span class="distorted">KICK</span>
+            <span class="distorted">BOT</span>
+            <span class="distorted">WHATSAPP</span>
+        </h1>
+    </section>
 
-<div class="cta">
-  <a href="https://wa.me/5517099852345" target="_blank">
-    Conversar comigo no WhatsApp
-  </a>
-</div>
+    <section class="info">
+        <p>O Kick-Bot é um bot(alugado) de automação para WhatsApp, projetado para gerenciar grupos, realizar tarefas utilitárias e oferecer entretenimento</p>
 
-  </section>  <footer>
-    © 2026 • Kick Bot • Desenvolvido por José Armando
-  </footer>  <a class="chat-btn" href="https://wa.me/5517099852345" target="_blank">
-    💬 Falar comigo
-  </a>
+        <ul class="features">
+            <li>GERENCIAMENTO DE GRUPOS</li>
+            <li>TAREFAS UTILITÁRIAS</li>
+            <li>ENTRETENIMENTO</li>
+        </ul>
+    </section>
+
+    <section class="cta">
+        <h2 class="cta-title">FALE COMIGO</h2>
+        <a href="https://wa.me/17099852345" class="cta-button" target="_blank" rel="noopener noreferrer">
+            WHATSAPP
+        </a>
+    </section>
+
+    <footer>
+        <p>KICK BOT 2026</p>
+    </footer>
+
+    <script>
+        // Simple parallax
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-title');
+            if (hero) {
+                hero.style.transform = `scaleY(1.2) translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Random glitch on logo
+        const logo = document.querySelector('.logo');
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                logo.style.transform = `skewX(-5deg) translateX(${Math.random() * 4 - 2}px)`;
+                setTimeout(() => {
+                    logo.style.transform = 'skewX(-5deg) translateX(0)';
+                }, 100);
+            }
+        }, 100);
+    </script>
 </body>
 </html>
